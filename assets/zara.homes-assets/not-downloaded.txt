@@ -1,3 +1,0 @@
-These files could not be downloaded (the site refused, or they are too large):
-
-still-form-social.jpg: http://localhost:3000/images/still-form-social.jpg
