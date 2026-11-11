@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# ZARA — contemporary architecture and residences, Assagao, Goa

@@ -1,0 +1,771 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * ZARA — measured design tokens (light first, dark supported)
+ * ------------------------------------------------------------------ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-panel: var(--panel);
+  --color-panel-ink: var(--panel-ink);
+  --color-panel-muted: var(--panel-muted);
+  --color-panel-line: var(--panel-line);
+  --color-accent: var(--accent-1);
+  --color-ink: #2a2725;
+  --color-cream: #ede6d6;
+
+  --font-sans: var(--font-familjen), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-instrument), "Times New Roman", serif;
+
+  --radius-card: 12px;
+  --radius-soft: 18px;
+  --radius-frame: 24px;
+  --radius-stage: 36px;
+
+  --shadow-glass: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a,
+    0 0 8px 0 #ffffff73, 0 0 0 4px #ffffff33;
+}
+
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #171717;
+  --surface-1: #ede6d6;
+  --surface-2: #ffffff80;
+  --surface-3: #ffffff99;
+  --accent-1: #3fa85b;
+  --muted-1: #2a2725;
+  --muted-2: #2a2725b3;
+  --border: #ffffffb3;
+  --radius: 9999px;
+
+  --panel: #ede6d6;
+  --panel-ink: #2a2725;
+  --panel-muted: #2a2725b3;
+  --panel-line: rgb(42 39 37 / 16%);
+
+  --page-bg: #ffffff;
+  --page-ink: #171717;
+  --nav-glass: rgb(237 230 214 / 95%);
+  --nav-ink: #2a2725;
+  --nav-line: rgb(42 39 37 / 12%);
+
+  /* Measured reference tokens. */
+  --black: #000000;
+  --white: #ffffff;
+  --cream: #ede6d6;
+  --ink: #000000;
+  --gutter: 12px;
+  --margin: 40px;
+  --section: 64px;
+  --sp-xs: 3.17px;
+  --sp-sm: 7.49px;
+  --sp-md: 14.98px;
+  --sp-lg: 21.6px;
+  --sp-xl: 40px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --margin: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --link: #ffffff;
+    --surface-1: #ffffff;
+    --surface-2: #ede6d6;
+    --surface-3: #ffffff99;
+    --surface-4: #000000;
+    --muted-1: #ffffff;
+    --muted-2: #2a2725;
+    --muted-3: #2a2725b3;
+
+    --panel: #ede6d6;
+    --panel-ink: #2a2725;
+    --panel-muted: #2a2725b3;
+    --panel-line: rgb(42 39 37 / 16%);
+
+    --page-bg: #0a0a0a;
+    --page-ink: #ededed;
+    /* The bar stays cream in both schemes: it sits over beige panels most of
+       the page, and reads as a deliberate light band over the dark section. */
+    --nav-glass: rgb(237 230 214 / 96%);
+    --nav-ink: #2a2725;
+    --nav-line: rgb(42 39 37 / 12%);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--page-bg);
+    color: var(--page-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400;
+  }
+
+  ::selection {
+    background: var(--accent-1);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+}
+
+/* Lenis smooth scrolling. Native smooth scroll is disabled while active. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+@layer components {
+  .container-wide {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: var(--margin);
+  }
+
+  /* Five display sizes, taken from the live page's scale. */
+  .type-display {
+    font-family: var(--font-serif);
+    font-size: clamp(3.25rem, 6.27vw, 5.64rem);
+    line-height: 0.94;
+    letter-spacing: -0.015em;
+  }
+
+  .type-h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4.4vw, 3.96rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+  }
+
+  .type-h3 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.35rem, 4.17vw, 3.75rem);
+    line-height: 1.04;
+    letter-spacing: -0.012em;
+  }
+
+  .type-statement {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3.15rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  .type-mega {
+    font-family: var(--font-sans);
+    font-size: clamp(4rem, 8.9vw, 8rem);
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+  }
+
+  .type-footer {
+    font-family: var(--font-serif);
+    font-size: clamp(2.85rem, 5.2vw, 4.68rem);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+  }
+
+  .type-eyebrow {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .type-micro {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    border-radius: 9999px;
+    padding: 14px 24px;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
+    transition:
+      background-color 300ms ease,
+      color 300ms ease,
+      border-color 300ms ease;
+  }
+
+  .pill-cream {
+    background: #ede6d6;
+    color: #2a2725;
+  }
+
+  .pill-cream:hover {
+    background: #f7f2e8;
+  }
+
+  .pill-dark {
+    background: #2a2725;
+    color: #ede6d6;
+  }
+
+  .pill-dark:hover {
+    background: #413c38;
+  }
+
+  .pill-glass {
+    background: rgb(255 255 255 / 12%);
+    color: #ffffff;
+    border: 1px solid rgb(255 255 255 / 45%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .pill-glass:hover {
+    background: rgb(255 255 255 / 22%);
+  }
+
+  .link-under {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding-block: 6px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    border-bottom: 1px solid currentColor;
+    transition: opacity 300ms ease;
+  }
+
+  .link-under:hover {
+    opacity: 0.65;
+  }
+
+  .glass {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    box-shadow:
+      0 10px 15px -3px #0000001a,
+      0 4px 6px -4px #0000001a,
+      0 0 8px 0 #ffffff73,
+      0 0 0 4px #ffffff33;
+    backdrop-filter: blur(18px) saturate(1.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  }
+
+  .nav-solid {
+    color: var(--nav-ink);
+    background: var(--nav-glass);
+    border-bottom: 1px solid var(--nav-line);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  }
+
+  .nav-top {
+    color: var(--white);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  /* The structure study sits directly beneath the sky. An opaque sky-coloured
+     bar keeps the header legible and avoids a transparent fixed layer over a
+     sticky WebGL canvas. */
+  .nav-stage {
+    color: #17384f;
+    background: #cfe6f5;
+    border-bottom: 1px solid rgb(23 56 79 / 12%);
+  }
+
+  .hairline {
+    border-top: 1px solid var(--panel-line);
+  }
+
+  .img-zoom {
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .group:hover .img-zoom {
+    transform: scale(1.035);
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 64s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .gallery-dialog::backdrop {
+    background: rgb(11 11 10 / 85%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: backdrop-in 320ms ease both;
+  }
+
+  .gallery-dialog[open] {
+    animation: dialog-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-intro {
+    animation: intro-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--intro-delay, 0ms);
+  }
+
+  .stage-sky {
+    background:
+      radial-gradient(
+        58% 28% at 17% 17%,
+        rgb(255 255 255 / 34%),
+        transparent 72%
+      ),
+      radial-gradient(
+        45% 22% at 79% 12%,
+        rgb(255 255 255 / 24%),
+        transparent 72%
+      ),
+      radial-gradient(
+        55% 34% at 55% 28%,
+        rgb(255 255 255 / 13%),
+        transparent 74%
+      ),
+      linear-gradient(
+        180deg,
+        #cfe6f5 0%,
+        #a5c8e0 28%,
+        #6792b5 60%,
+        #21496d 100%
+      );
+  }
+
+  .stage-label {
+    animation: stage-label-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .drift-layer {
+    will-change: transform;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .hero-scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(9 9 8 / 55%) 0%,
+        rgb(9 9 8 / 12%) 24%,
+        rgb(9 9 8 / 0%) 44%,
+        rgb(9 9 8 / 72%) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgb(9 9 8 / 52%) 0%,
+        rgb(9 9 8 / 18%) 42%,
+        rgb(9 9 8 / 0%) 74%
+      );
+  }
+
+  .stamp-safe {
+    object-position: 50% 42%;
+  }
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes stage-label-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(-2.2%) scale(1.045);
+  }
+  to {
+    transform: translateY(2.2%) scale(1.045);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .drift-layer {
+    animation: drift linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.015);
+  }
+  to {
+    transform: scale(1.075);
+  }
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes line-drop {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 26s ease-in-out infinite alternate;
+}
+
+.animate-ping-soft {
+  animation: ping-soft 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-line-drop {
+  animation: line-drop 3.6s ease-in-out infinite;
+}
+
+/* The opening frame owns the hero until it hands over to the motion system. */
+html.motion-pending .hero-intro {
+  animation: none !important;
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+html.motion-gsap .hero-intro {
+  animation: none !important;
+}
+
+.preloader {
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+/* The inline head script marks a returning session before first paint. */
+html[data-preloader-skip] .preloader {
+  display: none !important;
+}
+
+/* Scroll reveals: progressive enhancement, visible without JS. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.no-js [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* The study stage is full-bleed and already sits under the sky-coloured bar;
+   landing it at the header offset would clip the bottom of the pinned frame. */
+#full-view {
+  scroll-margin-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .animate-slow-zoom,
+  .animate-ping-soft,
+  .animate-line-drop,
+  .marquee-track,
+  .drift-layer {
+    animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------- *
+ * Reference sequence: flat surfaces, square corners, cream sections.
+ * Only photography, its thumbnails and the carousel arrows stay round.
+ * ---------------------------------------------------------------- */
+main [class*="rounded-"] {
+  border-radius: 0;
+}
+
+main [class*="shadow-"] {
+  box-shadow: none !important;
+}
+
+.type-label-sm {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+main .intro-frame {
+  border-radius: 0;
+  box-shadow: none !important;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.intro-headline {
+  font-family: var(--font-sans);
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+@media (min-width: 1024px) {
+  .intro-headline {
+    font-size: 63.5px;
+    line-height: 0.95;
+  }
+}
+
+.intro-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  vertical-align: bottom;
+}
+
+.intro-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+main .intro-slot {
+  display: inline-block;
+  width: 96px;
+  height: 46px;
+  margin-right: 0.16em;
+  overflow: hidden;
+  border-radius: 8px;
+  vertical-align: -0.08em;
+  opacity: 0;
+  background: var(--cream);
+  will-change: opacity;
+}
+
+@media (min-width: 1024px) {
+  main .intro-slot {
+    width: 125px;
+    height: 60px;
+  }
+}
+
+main .collage-card,
+main .collage-main {
+  border-radius: 16px;
+  box-shadow: none !important;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+main .collage-arrow {
+  border-radius: 50%;
+  box-shadow: none !important;
+}
+
+/* ------------------------------------------------------------------ *
+ * FullView -> FullViewStudy handoff.
+ * SiteHeader is read-only, so the full-bleed state is driven by
+ * data-zara-hero-dark on <html> instead of a class inside the header.
+ * ------------------------------------------------------------------ */
+html[data-zara-hero-dark] header {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-zara-hero-dark] header a[href="#top"],
+html[data-zara-hero-dark] header button[aria-controls="mobile-menu"] {
+  color: #fff;
+  transition: color 300ms ease;
+}
+
+/* The green scroll-progress hairline would sit across the frame. */
+html[data-zara-hero-dark] header div[class*="bg-[#3fa85b]"] {
+  opacity: 0;
+}

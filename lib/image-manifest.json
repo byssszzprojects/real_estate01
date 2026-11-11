@@ -1,0 +1,74 @@
+{
+  "apartment-bedroom-2": {
+    "width": 1672,
+    "height": 941
+  },
+  "apartment-bedroom": {
+    "width": 1672,
+    "height": 941
+  },
+  "apartment-living": {
+    "width": 1672,
+    "height": 941
+  },
+  "apartment-tour": {
+    "width": 1672,
+    "height": 941
+  },
+  "cloud-1-cropped-beige": {
+    "width": 1440,
+    "height": 550
+  },
+  "cloud-1-cropped": {
+    "width": 1440,
+    "height": 550
+  },
+  "cloud-2-full-beige": {
+    "width": 1440,
+    "height": 900
+  },
+  "cloud-2-full": {
+    "width": 1440,
+    "height": 900
+  },
+  "exterior-garden-clean": {
+    "width": 1522,
+    "height": 578
+  },
+  "hero3": {
+    "width": 1672,
+    "height": 941
+  },
+  "hero5": {
+    "width": 1672,
+    "height": 941
+  },
+  "kitchen-clean": {
+    "width": 1522,
+    "height": 578
+  },
+  "landscape-house-clean": {
+    "width": 1522,
+    "height": 578
+  },
+  "living-room-clean": {
+    "width": 1522,
+    "height": 578
+  },
+  "nightSide": {
+    "width": 1672,
+    "height": 941
+  },
+  "patio-front-clean": {
+    "width": 1522,
+    "height": 688
+  },
+  "side": {
+    "width": 1448,
+    "height": 1086
+  },
+  "top": {
+    "width": 1672,
+    "height": 941
+  }
+}

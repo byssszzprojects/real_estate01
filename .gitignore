@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+qa/
+.preview/
+*.tsbuildinfo
+*.log
+.env*
+.DS_Store
